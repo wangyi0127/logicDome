@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>忘记密码</title>
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+</head>
+<body>
+<h1>玩转spring boot——简单登录认证</h1>
+<h4>
+    <a href="#">密码重置用户认证</a>
+</h4>
+<form id="formSubmit">
+    账号：<input class="account" type="text" name="account"></br>
+    验证码：<input class="code" type="code" name="code"><input onclick="getCode()" type="button" value="手机验证码登录"></br>
+    <input type="submit" value="提交">
+</form>
+<br />
+
+<script>
+    $('#formSubmit').submit(function (event) {
+        var name = $(".account").val();
+        var code = $(".code").val();
+        $.ajax({
+            url: "/anthUser",
+            type: "post",
+            data: 'account='+name+'&code='+code,
+            success: function(data) {
+                if(data.success == true){
+                    location.href = "/showrepass";
+                }else {
+                    alert(data.message);
+                }
+            }
+        });
+        return false;
+    });
+    function getCode(){
+        var name = $(".account").val();
+        $.ajax({
+            url: "/getCode",
+            type: "post",
+            data: 'account='+name,
+            success: function(data) {
+                alert("验证码已下发")
+
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>shopping</title>
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+</head>
+<body>
+    <table th:each="i:${s}">
+        <input type="hidden" class="id" th:value="${i.getId()}">
+        <tr >
+            <td>商品</td>
+            <td th:text="${i.getSpTitle()}"></td>
+        </tr>
+        <tr>
+            <td>图片</td>
+            <td><img style="width: 250px;height: 250px;" th:src="${i.getImages()}"></td>
+        </tr>
+        <tr>
+            <td>描述</td>
+            <td th:text="${i.getSpText()}"></td>
+        </tr>
+        <tr >
+            <td>价格</td>
+            <td th:text="'￥'+${i.getSpPrice()}"></td>
+            <input type="hidden" class="price" th:value="${i.getSpPrice()}">
+        </tr>
+        <tr >
+            <td>购买数量</td>
+            <td><input th:onchange="'sum('+${i.getId()}+','+${i.getSpPrice()}+','+value+')'" class="count" value="1"><span th:id="'sp'+${i.getId()}">总计：￥3</span></td>
+            <td><a href="#">点击购买</a></td>
+        </tr>
+            <hr/>
+    </table>
+</body>
+<script>
+    function sum(id,price,value){
+        var sum = price * value;
+        $("#sp"+id).text("总计：￥"+sum);
+    }
+</script>
+</html>

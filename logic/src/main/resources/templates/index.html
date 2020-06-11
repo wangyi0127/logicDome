@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>玩转spring boot——简单登录认证</title>
+</head>
+<body>
+<h1>玩转spring boot——简单登录认证</h1>
+<h4>
+    <a href="/toShopping">from xxx的商城</a>
+</h4>
+<h3 th:text="'登录用户：' + ${name}"></h3>
+<table th:each="i:${s}">
+
+    <tr >
+        <td>Id</td>
+        <td th:text="${i.getId()}"></td>
+    </tr>
+
+    <tr >
+        <td>姓名</td>
+        <td th:text="${i.getUserName()}"></td>
+
+    </tr>
+    <tr >
+        <td>工号</td>
+        <td th:text="${i.getGid()}"></td>
+
+    </tr>
+    <tr >
+        <td>身份证号码</td>
+        <td th:text="${i.getCid()}"></td>
+    </tr>
+</table>
+<a href="/getSelfInfo">修改信息</a>
+<a href="/logout">注销</a>
+<br />
+<a href="http://www.cnblogs.com/GoodHelper/">点击访问原版博客(www.cnblogs.com/GoodHelper)</a>
+</body>
+</html>

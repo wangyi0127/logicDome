@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+</head>
+<body>
+<h1>玩转spring boot——简单登录认证</h1>
+<h4>
+    <a href="#">密码重置操作</a>
+</h4>
+<form id="formSubmit">
+    账号：<input class="passwd" type="password" name="account"></br>
+    密码：<input class="rpasswd" type="password" name="password"></br>
+    <input type="submit" value="提交">
+</form>
+<br />
+
+<script>
+    $('#formSubmit').submit(function (event) {
+        var passwd = $(".passwd").val();
+        var rpasswd = $(".rpasswd").val();
+        $.ajax({
+            url: "/resetPasswd",
+            type: "post",
+            data: 'passwd='+passwd+'&rpasswd='+rpasswd,
+            success: function(data) {
+                if(data.success == true){
+                    alert(data.message);
+                    location.href = "/";
+                }else {
+                    alert(data.message);
+                }
+            }
+        });
+        return false;
+    });
+</script>
+</body>
+</html>

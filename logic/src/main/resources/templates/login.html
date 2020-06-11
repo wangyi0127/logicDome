@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>玩转spring boot——简单登录认证</title>
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+</head>
+<body>
+<h1>玩转spring boot——简单登录认证</h1>
+<h4>
+    <a href="#">绕过图片验证码进行密码爆破</a>
+</h4>
+<form id="formSubmit">
+    账号：<input class="account" type="text" name="account"></br>
+    验证码：<input class="code" type="code" name="code"><img src="/getVerifiCode"></br>
+    密码：<input class="passwd" type="password" name="password"></br>
+    <input type="submit" value="提交"><a href="/showanth">忘记密码</a>
+</form>
+<br />
+
+<hr>
+<h4>
+    <a href="#">短信验证码登录绕过</a>
+</h4>
+<form id="formSubmit1">
+    账号：<input class="account1" type="text" name="account1"></br>
+    验证码：<input class="code1" type="code1" name="code1"><input onclick="getCode()" type="button" value="手机验证码登录"></br>
+<!--    密码：<input class="passwd" type="password" name="password"></br>-->
+    <input type="submit" value="提交">
+</form>
+<br />
+
+<a href="#">点击访问原版博客(www.xxx.com/)</a>
+</body>
+<script>
+    $('#formSubmit').submit(function (event) {
+        var name = $(".account").val();
+        var passwd = $(".passwd").val();
+        var code = $(".code").val();
+        $.ajax({
+            url: "/loginPost",
+            type: "post",
+            data: 'account='+name+'&password='+passwd+'&code='+code,
+            success: function(data) {
+                location.href = "/"
+                // data = jQuery.parseJSON(data);  //dataType指明了返回数据为json类型，故不需要再反序列化
+            }
+        });
+        return false;
+    });
+
+    function getCode(){
+        var name = $(".account1").val();
+        $.ajax({
+            url: "/getCode",
+            type: "post",
+            data: 'account='+name,
+            success: function(data) {
+                alert("验证码已下发")
+                // data = jQuery.parseJSON(data);  //dataType指明了返回数据为json类型，故不需要再反序列化
+            }
+        });
+    }
+    $('#formSubmit1').submit(function (event) {
+        var name = $(".account1").val();
+        var code = $(".code1").val();
+        $.ajax({
+            url: "/loginPost1",
+            type: "post",
+            data: 'account='+name+'&code='+code,
+            success: function(data) {
+                location.href = "/"
+                // data = jQuery.parseJSON(data);  //dataType指明了返回数据为json类型，故不需要再反序列化
+            }
+        });
+        return false;
+    });
+</script>
+</html>

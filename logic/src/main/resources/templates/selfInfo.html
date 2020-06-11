@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+</head>
+<body>
+<form id="formSubmit">
+    <table th:each="i:${s}">
+        <input type="hidden" class="id" th:value="${i.getId()}">
+
+        <tr >
+            <td>姓名</td>
+            <td><input class="name" th:value="${i.getUserName()}"></td>
+
+        </tr>
+        <tr >
+            <td>工号</td>
+            <td><input class="gid" th:value="${i.getGid()}"></td>
+
+        </tr>
+        <tr >
+            <td>身份证号码</td>
+            <td><input class="cid" th:value="${i.getCid()}"></td>
+        </tr>
+    </table>
+    <input type="submit" value="提交">
+</form>
+<script>
+    $('#formSubmit').submit(function (event) {
+        var id = $(".id").val();
+        var name = $(".name").val();
+        var gid = $(".gid").val();
+        var cid = $(".cid").val();
+        $.ajax({
+            url: "/updateInfo",
+            type: "post",
+            data: 'id='+id+'&name='+name+'&gid='+gid+'&cid='+cid,
+            success: function(data) {
+                if(data.success == true){
+                    alert(data.message);
+                    location.href = "/";
+                }else {
+                    alert(data.message);
+                }
+            }
+        });
+        return false;
+    });
+</script>
+
+</body>
+</html>
