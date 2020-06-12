@@ -25,14 +25,16 @@ public class User implements Serializable {
     private int gid;
     @Column(name = "cid")
     private String cid;
-    @Column(name = "userid")
-    private int userId;
 
     public User() {
         super();
     }
 
-    public User(String loginName, String passWord, String userName, String sex, int gid, String cid, int userId) {
+    public String getUser(){
+        return "{\"id\":"+this.id+",\"loginName\":\""+this.loginName+"\",\"passWord\":\"******\",\"userName\":\""+this.userName+"\", \"sex\": \""+this.sex+"\", \"gid\": "+this.gid+", \"cid\": \""+this.cid+"\" }";
+    }
+
+    public User(String loginName, String passWord, String userName, String sex, int gid, String cid) {
         super();
         this.loginName = loginName;
         this.passWord = passWord;
@@ -40,7 +42,6 @@ public class User implements Serializable {
         this.sex = sex;
         this.gid = gid;
         this.cid = cid;
-        this.userId = userId;
     }
 
     public int getId(){
@@ -88,12 +89,5 @@ public class User implements Serializable {
         return cid;
     }
     public void setCid(String cid){ this.passWord = cid; }
-
-    public int getUserId(){
-        return userId;
-    }
-    public void setUserId(int userId){
-        this.userId = userId;
-    }
 
 }

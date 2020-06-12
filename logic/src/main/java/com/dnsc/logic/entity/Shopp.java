@@ -30,7 +30,7 @@ public class Shopp {
         super();
     }
 
-    public Shopp( int id, String spName, String spTitle, String spText, String images, double spPrice, Date createDate) {
+    public Shopp( int id, String spName, String spTitle, String spText, String images, double spPrice) {
         super();
         this.id = id;
         this.spName = spName;
@@ -38,7 +38,6 @@ public class Shopp {
         this.spText = spText;
         this.images = images;
         this.spPrice = spPrice;
-        this.createDate = createDate;
     }
 
     public int getId(){

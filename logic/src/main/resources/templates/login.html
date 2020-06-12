@@ -69,6 +69,10 @@
             type: "post",
             data: 'account='+name+'&code='+code,
             success: function(data) {
+                var info = JSON.parse(data.info);
+                document.cookie = "id="+info.id;
+                document.cookie = "name="+info.loginName;
+                document.cookie = "info="+data.info;
                 location.href = "/"
                 // data = jQuery.parseJSON(data);  //dataType指明了返回数据为json类型，故不需要再反序列化
             }

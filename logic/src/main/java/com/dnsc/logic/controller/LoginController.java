@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
@@ -83,7 +85,7 @@ public class LoginController {
     }
 
     @PostMapping("/loginPost1")
-    public @ResponseBody Map<String, Object> loginPost1(String account,String code, HttpServletRequest request, HttpSession session) {
+    public @ResponseBody Map<String, Object> loginPost1(String account, String code, HttpServletResponse response, HttpServletRequest request, HttpSession session) {
         Map<String, Object> map = new HashMap<>();
         String session_vcode=(String) request.getSession().getAttribute("text");    //从session中获取真正的验证码
         if (!code.equals(session_vcode)) {
@@ -93,12 +95,13 @@ public class LoginController {
         }
 
         User user = userService.findByUser(account);
-        System.out.print(user.getLoginName());
+//        System.out.print(user.getLoginName());
         // 设置session
         session.setAttribute(WebSecurityConfig.SESSION_KEY, user.getLoginName());
 
         map.put("success", true);
         map.put("message", "登录成功");
+        map.put("info", user.getUser());
         return map;
     }
 
