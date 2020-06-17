@@ -28,7 +28,7 @@
         </tr>
         <tr >
             <td>购买数量</td>
-            <td><input th:id="'count'+${i.getId()}" th:onchange="'sum('+${i.getId()}+','+${i.getSpPrice()}+','+value+')'" class="count" value="1"><span th:id="'sp'+${i.getId()}">总计：￥3</span></td>
+            <td><input th:id="'count'+${i.getId()}" th:onkeyup="'sum('+${i.getId()}+','+${i.getSpPrice()}+','+value+')'" class="count" value="1"><span th:id="'sp'+${i.getId()}">总计：￥3</span></td>
             <td><input type="button" th:onclick="'subSpOrder('+${i.getId()}+','+${i.getSpPrice()}+')'" value="点击购买"></input></td>
         </tr>
             <hr/>
@@ -52,7 +52,8 @@
             data: 'spid='+spid+'&userid='+getCookie("id")+'&count='+count+'&price='+price+'&sumprice='+sumprice,
             success: function(data) {
                 if (data.success == true){
-                    location.href = "/createQrCode?url=http://106.53.100.231:80/sendPay?url="+btoa(JSON.stringify(data));
+                    location.href = "/payModel?info="+btoa(JSON.stringify(data.info));
+                    // location.href = "/createQrCode?url=http://192.168.12.37:8080/sendPay?info="+btoa(JSON.stringify(data));
                 }else {
                     alert("订单创建失败")
                 }

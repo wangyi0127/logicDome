@@ -39,6 +39,8 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
         addInterceptor.excludePathPatterns("/anthUser");
         addInterceptor.excludePathPatterns("/resetPasswd");
         addInterceptor.excludePathPatterns("/show**");
+        addInterceptor.excludePathPatterns("/**Pay**");
+//        addInterceptor.excludePathPatterns("/**pay**");
 
         // 拦截配置
         addInterceptor.addPathPatterns("/**");

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>付款操作</title>
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+</head>
+<body>
+<input type="hidden" id="i" th:value="${info}"></input>
+<br>
+<h2 style="margin-left: 40px" id="j"></h2>
+<br>
+<input style="float: left;width: 40%;height: 180px;font-size: 28px" onclick="yes()" value="确认支付">
+<input style="float: right;width: 40%;height: 180px;font-size: 28px" onclick="non()" value="取消支付">
+</body>
+
+<script>
+    $(function () {
+        var i = $("#i").val();
+        $("#j").text("金额："+JSON.parse(atob(i)).sumPrice);
+    })
+    function yes() {
+        var i = $("#i").val();
+        // alert(JSON.parse(atob(i)).oid);
+        $.ajax({
+            url: "/sendPay",
+            type: "post",
+            data: 'oid='+JSON.parse(atob(i)).oid,
+            success: function(data) {
+                if (data.success == true){
+                    alert(data.message);
+                    location.href = "/toShopping";
+                }else {
+                    alert(data.message);
+                }
+            }
+        });
+    }
+    function non() {
+        location.href = "/toShopping";
+    }
+</script>
+</html>

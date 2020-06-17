@@ -11,6 +11,8 @@ public class SpOrders {
     @Id
     @GeneratedValue
     private int id;
+    @Column(name = "oid")
+    private String oid;
     @Column(name = "spid")
     private int spId;
     @Column(name = "userid")
@@ -31,9 +33,9 @@ public class SpOrders {
         super();
     }
 
-    public SpOrders(int spId, int userId, int count, double price, double sumPrice, int status) {
+    public SpOrders(String oid,int spId, int userId, int count, double price, double sumPrice, int status) {
         super();
-        this.id = id;
+        this.oid = oid;
         this.spId = spId;
         this.userId = userId;
         this.count = count;
@@ -48,6 +50,14 @@ public class SpOrders {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getOid() {
+        return oid;
+    }
+
+    public void setOid(String oid) {
+        this.oid = oid;
     }
 
     public int getSpId() {
